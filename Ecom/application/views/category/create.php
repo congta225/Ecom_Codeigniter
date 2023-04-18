@@ -1,9 +1,9 @@
 <div class="container">
 	<div class="card">
 		<div class="card-header">
-			Create Brand
+			Create Category
 		</div>
-		<a href="<?php echo base_url('brand/list') ?>" class="btn btn-success">Danh sách thương hiệu</a>
+		<a href="<?php echo base_url('category/list') ?>" class="btn btn-success">Danh sách danh mục</a>
 
 		<div class="card-body">
 			<?php
@@ -17,7 +17,7 @@
 			<?php
 			}
 			?>
-			<form action="<?php echo base_url('brand/store') ?>" method="POST" enctype="multipart/form-data">
+			<form action="<?php echo base_url('category/store') ?>" method="POST" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="exampleInputEmail1">Title</label>
 					<input type="text" name="title" class="form-control">

@@ -26,12 +26,32 @@
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="<?php echo base_url('brand/create') ?>">Add Brand</a>
-						<a class="dropdown-item" href="<?php echo base_url('brand/list') ?>">list Brand</a>
+						<a class="dropdown-item" href="<?php echo base_url('brand/list') ?>">List Brand</a>
+
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Category
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="<?php echo base_url('category/create') ?>">Add Category</a>
+						<a class="dropdown-item" href="<?php echo base_url('category/list') ?>">List Category</a>
+
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Product
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="<?php echo base_url('product/create') ?>">Add Product</a>
+						<a class="dropdown-item" href="<?php echo base_url('product/list') ?>">List Product</a>
 
 					</div>
 				</li>
 			</ul>
-			
+
 		</div>
 	</nav>
 

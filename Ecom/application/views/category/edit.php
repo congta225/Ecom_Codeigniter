@@ -1,11 +1,13 @@
 <div class="container">
 	<div class="card">
 		<div class="card-header">
-			Create Brand
+			Edit Category
 		</div>
-		<a href="<?php echo base_url('brand/list') ?>" class="btn btn-success">Danh sách thương hiệu</a>
 
 		<div class="card-body">
+			<a href="<?php echo base_url('category/list') ?>" class="btn btn-success">Danh sách danh mục</a>
+
+			<a href="<?php echo base_url('category/create') ?>" class="btn btn-primary">Thêm mới</a>
 			<?php
 			if ($this->session->flashdata('success')) {
 			?>
@@ -17,25 +19,26 @@
 			<?php
 			}
 			?>
-			<form action="<?php echo base_url('brand/store') ?>" method="POST" enctype="multipart/form-data">
+			<form action="<?php echo base_url('category/update/' . $category->id) ?>" method="POST" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="exampleInputEmail1">Title</label>
-					<input type="text" name="title" class="form-control">
+					<input type="text" value="<?php echo $category->title ?>" name="title" class="form-control">
 					<?php echo '<span class="text text-danger">' . form_error('title') . '</span>' ?>
 				</div>
 				<div class="form-group">
 					<label for="exampleInputEmail1">Slug</label>
-					<input type="text" name="slug" class="form-control">
+					<input type="text" value="<?php echo $category->slug ?>" name="slug" class="form-control">
 					<?php echo '<span class="text text-danger">' . form_error('slug') . '</span>' ?>
 				</div>
 				<div class="form-group">
 					<label for="exampleInputPassword1">Description</label>
-					<input type="text" name="description" class="form-control">
+					<input type="text" value="<?php echo $category->description ?>" name="description" class="form-control">
 					<?php echo '<span class="text text-danger">' . form_error('description') . '</span>' ?>
 				</div>
 				<div class="form-group">
 					<label for="exampleInputPassword1">Image</label>
 					<input type="file" name="image" class="form-control-file">
+					<img src="<?php echo base_url('uploads/category/' . $category->image)  ?>" alt="" width="150" height="150">
 					<small><?php if (isset($error)) {
 								echo $error;
 							} ?></small>
@@ -43,12 +46,23 @@
 				<div class="form-group">
 					<label for="exampleFormControlSelect1">Status</label>
 					<select class="form-control" name="status">
-						<option value="1">Active</option>
-						<option value="0">InActive</option>
+						<?php
+						if ($category->status == '1') {
+						?>
+							<option selected value="1">Active</option>
+							<option value="0">InActive</option>
+						<?php
+						} else {
+						?>
+							<option value="1">Active</option>
+							<option selected value="0">InActive</option>
+						<?php
+						}
+						?>
 					</select>
 				</div>
 
-				<button type="submit" class="btn btn-primary">Add</button>
+				<button type="submit" class="btn btn-primary">Update</button>
 			</form>
 		</div>
 	</div>
