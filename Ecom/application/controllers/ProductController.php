@@ -16,10 +16,10 @@ class ProductController extends CI_Controller
 		$this->load->view('admin_template/header');
 		$this->load->view('admin_template/navbar');
 
-		$this->load->model('CategoryModel');
-		$data['category'] = $this->CategoryModel->selectCategory();
+		$this->load->model('ProductModel');
+		$data['product'] = $this->ProductModel->selectAllProduct();
 
-		$this->load->view('category/list', $data);
+		$this->load->view('product/list', $data);
 		$this->load->view('admin_template/footer');
 	}
 
@@ -28,7 +28,14 @@ class ProductController extends CI_Controller
 		$this->checkLogin();
 		$this->load->view('admin_template/header');
 		$this->load->view('admin_template/navbar');
-		$this->load->view('category/create');
+//Gọi Brand
+		$this->load->model('BrandModel');
+		$data['brand'] = $this->BrandModel->selectBrand();
+//Gọi category
+		$this->load->model('CategoryModel');
+		$data['category'] = $this->CategoryModel->selectCategory();
+
+		$this->load->view('product/create',$data);
 		$this->load->view('admin_template/footer');
 	}
 
@@ -36,13 +43,14 @@ class ProductController extends CI_Controller
 	{
 		$this->form_validation->set_rules('title', 'Title', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
 		$this->form_validation->set_rules('slug', 'Slug', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
+		$this->form_validation->set_rules('quantity', 'Quantity', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
 		$this->form_validation->set_rules('description', 'Description', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
 		if ($this->form_validation->run() == TRUE) {
 			//upload image
 			$ori_fileimage = $_FILES['image']['name'];
 			$new_name = time() . "" . str_replace(' ', '-', $ori_fileimage);
 			$config = [
-				'upload_path' => './uploads/category',
+				'upload_path' => './uploads/product',
 				'allowed_types' => 'gif|jpg|png|jpeg',
 				'file_name' => $new_name,
 			];
@@ -51,21 +59,24 @@ class ProductController extends CI_Controller
 				$error = array('error' => $this->upload->display_errors());
 				$this->load->view('admin_template/header');
 				$this->load->view('admin_template/navbar');
-				$this->load->view('category/create', $error);
+				$this->load->view('product/create', $error);
 				$this->load->view('admin_template/footer');
 			} else {
-				$cate_filename = $this->upload->data('file_name');
+				$filename = $this->upload->data('file_name');
 				$data = [
 					'title' => $this->input->post('title'),
 					'description' => $this->input->post('description'),
 					'slug' => $this->input->post('slug'),
+					'category_id' => $this->input->post('category_id'),
+					'brand_id' => $this->input->post('brand_id'),
+					'quantity' => $this->input->post('quantity'),
 					'status' => $this->input->post('status'),
-					'image' => $cate_filename,
+					'image' => $filename,
 				];
-				$this->load->model('CategoryModel');
-				$this->CategoryModel->insertCategory($data);
-				$this->session->set_flashdata('success', 'Thêm thành công!!');
-				redirect(base_url('category/list'));
+				$this->load->model('ProductModel');
+				$this->ProductModel->insertProduct($data);
+				$this->session->set_flashdata('success', 'Thêm sản phẩm thành công!!');
+				redirect(base_url('product/list'));
 			}
 		} else {
 			$this->create();
@@ -77,11 +88,17 @@ class ProductController extends CI_Controller
 		$this->checkLogin();
 		$this->load->view('admin_template/header');
 		$this->load->view('admin_template/navbar');
-
+		//Gọi Brand
+		$this->load->model('BrandModel');
+		$data['brand'] = $this->BrandModel->selectBrand();
+		//Gọi category
 		$this->load->model('CategoryModel');
-		$data['category'] = $this->CategoryModel->selectCategoryById($id);
+		$data['category'] = $this->CategoryModel->selectCategory();
 
-		$this->load->view('category/edit', $data);
+		$this->load->model('ProductModel');
+		$data['product'] = $this->ProductModel->selectProductById($id);
+
+		$this->load->view('product/edit', $data);
 		$this->load->view('admin_template/footer');
 	}
 
@@ -89,6 +106,7 @@ class ProductController extends CI_Controller
 	{
 		$this->form_validation->set_rules('title', 'Title', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
 		$this->form_validation->set_rules('slug', 'Slug', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
+		$this->form_validation->set_rules('quantity', 'Quantity', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
 		$this->form_validation->set_rules('description', 'Description', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
 		if ($this->form_validation->run() == TRUE) {
 			//kiem tra dữ liệu nếu trống thì k được update
@@ -97,7 +115,7 @@ class ProductController extends CI_Controller
 				$ori_fileimage = $_FILES['image']['name'];
 				$new_name = time() . "" . str_replace(' ', '-', $ori_fileimage);
 				$config = [
-					'upload_path' => './uploads/category',
+					'upload_path' => './uploads/product',
 					'allowed_types' => 'gif|jpg|png|jpeg',
 					'file_name' => $new_name,
 				];
@@ -106,16 +124,19 @@ class ProductController extends CI_Controller
 					$error = array('error' => $this->upload->display_errors());
 					$this->load->view('admin_template/header');
 					$this->load->view('admin_template/navbar');
-					$this->load->view('category/edit/' . $id, $error);
+					$this->load->view('product/edit/' . $id, $error);
 					$this->load->view('admin_template/footer');
 				} else {
-					$cate_filename = $this->upload->data('file_name');
+					$filename = $this->upload->data('file_name');
 					$data = [
 						'title' => $this->input->post('title'),
 						'description' => $this->input->post('description'),
 						'slug' => $this->input->post('slug'),
+						'category_id' => $this->input->post('category_id'),
+						'brand_id' => $this->input->post('brand_id'),
+						'quantity' => $this->input->post('quantity'),
 						'status' => $this->input->post('status'),
-						'image' => $cate_filename,
+						'image' => $filename,
 					];
 				}
 			} else {
@@ -123,14 +144,16 @@ class ProductController extends CI_Controller
 					'title' => $this->input->post('title'),
 					'description' => $this->input->post('description'),
 					'slug' => $this->input->post('slug'),
+					'category_id' => $this->input->post('category_id'),
+					'brand_id' => $this->input->post('brand_id'),
+					'quantity' => $this->input->post('quantity'),
 					'status' => $this->input->post('status'),
-
 				];
 			}
-			$this->load->model('CategoryModel');
-			$this->CategoryModel->updateCategory($id, $data);
-			$this->session->set_flashdata('success', 'Cập nhật thành công!!');
-			redirect(base_url('category/list'));
+			$this->load->model('ProductModel');
+			$this->ProductModel->updateProduct($id, $data);
+			$this->session->set_flashdata('success', 'Cập nhật sản phẩm thành công!!');
+			redirect(base_url('product/list'));
 		} else {
 			$this->edit($id);
 		}
@@ -138,9 +161,9 @@ class ProductController extends CI_Controller
 
 	public function delete($id)
 	{
-		$this->load->model('CategoryModel');
-		$this->CategoryModel->deleteCategory($id);
-		$this->session->set_flashdata('success', 'Xóa thành công!!');
-		redirect(base_url('category/list'));
+		$this->load->model('ProductModel');
+		$this->ProductModel->deleteProduct($id);
+		$this->session->set_flashdata('success', 'Xóa sản phẩm thành công!!');
+		redirect(base_url('product/list'));
 	}
 }
