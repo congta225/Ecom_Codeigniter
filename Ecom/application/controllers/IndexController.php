@@ -7,13 +7,13 @@ class IndexController extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('IndexModel');
-		$data['category'] = $this->IndexModel->getCategoryHome();
-		$data['brand'] = $this->IndexModel->getBrandHome();
+		$this->data['category'] = $this->IndexModel->getCategoryHome();
+		$this->data['brand'] = $this->IndexModel->getBrandHome();
 	}
 
 	public function index()
 	{
-		$this->load->view('pages/template/header');
+		$this->load->view('pages/template/header', $this->data);
 		$this->load->view('pages/template/slider');
 		$this->load->view('pages/home');
 		$this->load->view('pages/template/footer');
