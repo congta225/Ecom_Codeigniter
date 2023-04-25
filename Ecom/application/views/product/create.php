@@ -1,5 +1,4 @@
-<div class="container">
-	<div class="card">
+<div class="card">
 		<div class="card-header">
 			Create Product
 		</div>
@@ -22,6 +21,11 @@
 					<label for="exampleInputEmail1">Title</label>
 					<input type="text" name="title" class="form-control">
 					<?php echo '<span class="text text-danger">' . form_error('title') . '</span>' ?>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Price</label>
+					<input type="text" name="price" class="form-control">
+					<?php echo '<span class="text text-danger">' . form_error('price') . '</span>' ?>
 				</div>
 				<div class="form-group">
 					<label for="exampleInputEmail1">Quantity</label>
@@ -83,4 +87,3 @@
 			</form>
 		</div>
 	</div>
-</div>

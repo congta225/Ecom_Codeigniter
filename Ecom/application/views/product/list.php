@@ -1,4 +1,3 @@
-<div class="container">
 	<div class="card">
 		<div class="card-header">
 			List Product
@@ -21,6 +20,7 @@
 					<tr>
 						<th scope="col">#</th>
 						<th scope="col">Title</th>
+						<th scope="col">Price</th>
 						<th scope="col">Quantity</th>
 						<th scope="col">Category</th>
 						<th scope="col">Brand</th>
@@ -38,6 +38,7 @@
 						<tr>
 							<th scope="row"><?php echo $key ?></th>
 							<td><?php echo $pro->title ?></td>
+							<td><?php echo number_format($pro->price,0,',','.')?>VNĐ</td>
 							<td><?php echo $pro->quantity ?></td>
 							<td><?php echo $pro->tendanhmuc ?></td>
 							<td><?php echo $pro->tenthuonghieu ?></td>
@@ -65,4 +66,3 @@
 			</table>
 		</div>
 	</div>
-</div>
