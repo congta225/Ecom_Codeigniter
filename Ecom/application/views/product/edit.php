@@ -1,4 +1,3 @@
-<div class="container">
 	<div class="card">
 		<div class="card-header">
 			Edit Product
@@ -24,6 +23,11 @@
 					<label for="exampleInputEmail1">Title</label>
 					<input type="text" value="<?php echo $product->title ?>" name="title" class="form-control" >
 					<?php echo '<span class="text text-danger">' . form_error('title') . '</span>' ?>
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Price</label>
+					<input type="text" value="<?php echo $product->price ?>" name="title" class="form-control" >
+					<?php echo '<span class="text text-danger">' . form_error('price') . '</span>' ?>
 				</div>
 				<div class="form-group">
 					<label for="exampleInputEmail1">Quantity</label>
@@ -97,4 +101,3 @@
 			</form>
 		</div>
 	</div>
-</div>

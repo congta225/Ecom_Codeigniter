@@ -101,9 +101,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 									<ul role="menu" class="sub-menu">
 										<?php
 										foreach ($category as $key => $cate) {
-
 										?>
-											<li><a href="<?php echo $cate->id ?>"><?php echo $cate->title ?></a></li>
+											<li><a href="<?php echo base_url('danh-muc/'.$cate->id) ?>"><?php echo $cate->title ?></a></li>
 										<?php
 										}
 										?>

@@ -13,17 +13,18 @@ class IndexController extends CI_Controller
 
 	public function index()
 	{
+		$this->data['allproduct'] = $this->IndexModel->getAllProductHome();
 		$this->load->view('pages/template/header', $this->data);
 		$this->load->view('pages/template/slider');
-		$this->load->view('pages/home');
+		$this->load->view('pages/home', $this->data);
 		$this->load->view('pages/template/footer');
 	}
 
 	public function category($id)
 	{
-		$this->load->view('pages/template/header');
+		$this->load->view('pages/template/header', $this->data);
 		$this->load->view('pages/template/slider');
-		$this->load->view('pages/category');
+		$this->load->view('pages/category', $this->data);
 		$this->load->view('pages/template/footer');
 	}
 
