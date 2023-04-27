@@ -38,7 +38,7 @@
 						<tr>
 							<th scope="row"><?php echo $key ?></th>
 							<td><?php echo $pro->title ?></td>
-							<td><?php echo number_format($pro->price,0,',','.')?>VNĐ</td>
+							<td><?php echo number_format($pro->price, 0, ',', '.') ?>đ</td>
 							<td><?php echo $pro->quantity ?></td>
 							<td><?php echo $pro->tendanhmuc ?></td>
 							<td><?php echo $pro->tenthuonghieu ?></td>
