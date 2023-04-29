@@ -34,10 +34,11 @@ class IndexModel extends CI_Model
 			->from('categories')
 			->join('products', 'products.category_id = categories.id')
 			->join('brands', 'brands.id=products.brand_id')
-			->where('products.brand_id', $id)
+			->where('products.id', $id)
 			->get();
 		return $query->result();
 	}
+
 
 	public function getCategoryTitle($id)
 	{
@@ -59,5 +60,16 @@ class IndexModel extends CI_Model
 		$query = $this->db->get();
 		$result = $query->row();
 		return $title = $result->title;
+	}
+	public function getProductDetails($id)
+	{
+
+		$query = $this->db->select('categories.title as tendanhmuc, products.*, brands.title as tenthuonghieu')
+			->from('categories')
+			->join('products', 'products.category_id = categories.id')
+			->join('brands', 'brands.id=products.brand_id')
+			->where('products.id', $id)
+			->get();
+		return $query->result();
 	}
 }
