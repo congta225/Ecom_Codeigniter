@@ -53,6 +53,12 @@ class IndexController extends CI_Controller
 		$this->load->view('pages/cart');
 		$this->load->view('pages/template/footer');
 	}
+	public function checkout()
+	{
+		$this->load->view('pages/template/header', $this->data);
+		$this->load->view('pages/checkout');
+		$this->load->view('pages/template/footer');
+	}
 	public function add_to_cart()
 	{
 		$product_id = $this->input->post('product_id');
@@ -70,6 +76,36 @@ class IndexController extends CI_Controller
 		$this->cart->insert($cart);
 		redirect(base_url() . 'gio-hang', 'refresh');
 	}
+
+	public function delete_all_cart()
+	{
+		$this->cart->destroy();
+		redirect(base_url() . 'gio-hang', 'refresh');
+	}
+
+	public function delete_item($rowid)
+	{
+		$this->cart->remove($rowid);
+		redirect(base_url() . 'gio-hang', 'refresh');
+	}
+
+	public function update_cart_item()
+	{
+		$rowid = $this->input->post('rowid');
+		$quantity = $this->input->post('quantity');
+		foreach ($this->cart->contents() as $items) {
+			if ($rowid == $items['rowid']) {
+				$cart = array(
+					'rowid' => $rowid,
+					'qty'     => $quantity
+				);
+			}
+		}
+		$this->cart->update($cart);
+		// redirect(base_url() . 'gio-hang', 'refresh');
+		redirect($_SERVER['HTTP_REFERER']);
+	}
+
 	public function login()
 	{
 		$this->load->view('pages/template/header');

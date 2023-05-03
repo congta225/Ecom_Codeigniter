@@ -11,7 +11,12 @@ $route['thuong-hieu/(:any)']['GET'] = 'IndexController/brand/$1';
 $route['san-pham/(:any)']['GET'] = 'IndexController/product/$1';
 $route['gio-hang']['GET'] = 'IndexController/cart';
 $route['them-gio-hang']['POST'] = 'IndexController/add_to_cart';
+$route['delete-all-cart']['GET'] = 'IndexController/delete_all_cart';
+$route['delete-item/(:any)']['GET'] = 'IndexController/delete_item/$1';
+$route['update-cart-item']['POST'] = 'IndexController/update_cart_item';
 $route['dang-nhap']['GET'] = 'IndexController/login';
+$route['checkout']['GET'] = 'IndexController/checkout';
+
 //login
 $route['login']['GET'] = 'LoginController/index';
 $route['login-user']['POST'] = 'LoginController/login';
