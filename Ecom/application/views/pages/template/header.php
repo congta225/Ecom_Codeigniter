@@ -74,7 +74,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<?php
 								if ($this->session->userdata('LoggedInCustomer')) {
 								?>
-									<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+									<li><a href="#"><i class="fa fa-user"></i> Account</a>: <?php echo $this->session->userdata('LoggedInCustomer')['email'] ?></li>
 									<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 									<li><a href="<?php echo base_url('checkout') ?>"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 									<li><a href="<?php echo base_url('dang-xuat/') ?>"><i class="fa fa-lock"></i> Logout</a></li>
@@ -86,7 +86,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								}
 								?>
 								<li><a href="<?php echo base_url('gio-hang/') ?>"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="<?php echo base_url('dang-nhap/') ?>"><i class="fa fa-lock"></i> Login</a></li>
 							</ul>
 						</div>
 					</div>

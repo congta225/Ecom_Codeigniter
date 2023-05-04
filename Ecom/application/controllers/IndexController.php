@@ -55,9 +55,13 @@ class IndexController extends CI_Controller
 	}
 	public function checkout()
 	{
-		$this->load->view('pages/template/header', $this->data);
-		$this->load->view('pages/checkout');
-		$this->load->view('pages/template/footer');
+		if ($this->session->userdata('LoggedInCustomer')) {
+			$this->load->view('pages/template/header', $this->data);
+			$this->load->view('pages/checkout');
+			$this->load->view('pages/template/footer');
+		} else {
+			redirect(base_url() . 'gio-hang');
+		}
 	}
 	public function add_to_cart()
 	{
@@ -140,6 +144,88 @@ class IndexController extends CI_Controller
 		}
 	}
 
+	public function dang_ky()
+	{
+		$this->form_validation->set_rules('email', 'Email', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
+		$this->form_validation->set_rules('password', 'Password', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
+		$this->form_validation->set_rules('phone', 'Phone', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
+		$this->form_validation->set_rules('address', 'Address', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
+		$this->form_validation->set_rules('name', 'Name', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
+		if ($this->form_validation->run() == TRUE) {
+			$email = $this->input->post('email');
+			$password = md5($this->input->post('password')); //mã hóa mật khẩu
+			$phone = $this->input->post('phone');
+			$address = $this->input->post('address');
+			$name = $this->input->post('name');
+			$data = array(
+				'name' => $name,
+				'email' => $email,
+				'phone' => $phone,
+				'address' => $address,
+				'password' => $password
+			);
+			$this->load->model('LoginModel');
+			$result = $this->LoginModel->NewCustomer($data);
+
+			if ($result) {
+				$session_array = [
+					'user_name' => $name,
+					'email' => $email
+				];
+				$this->session->set_userdata('LoggedInCustomer', $session_array);
+				$this->session->set_flashdata('success', 'Đăng ký thành công!!!');
+				redirect(base_url('/checkout'));
+			} else {
+				$this->session->set_flashdata('error', 'Email hoặc password của bạn chưa đúng');
+				redirect(base_url('/dang-nhap'));
+			}
+		} else {
+			$this->login();
+		}
+	}
+
+	public function confirm_checkout()
+	{
+		$this->form_validation->set_rules('email', 'Email', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
+		$this->form_validation->set_rules('phone', 'Phone', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
+		$this->form_validation->set_rules('address', 'Address', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
+		$this->form_validation->set_rules('name', 'Name', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
+		if ($this->form_validation->run() == TRUE) {
+			$email = $this->input->post('email');
+			$shiping_method = $this->input->post('shiping_method'); //mã hóa mật khẩu
+			$phone = $this->input->post('phone');
+			$address = $this->input->post('address');
+			$name = $this->input->post('name');
+			$data = array(
+				'name' => $name,
+				'email' => $email,
+				'phone' => $phone,
+				'address' => $address,
+				'method' => $shiping_method
+			);
+			$this->load->model('LoginModel');
+
+			$result = $this->LoginModel->NewShiping($data);
+
+			if ($result) {
+				//order
+				$order_code = rand(00, 9999);
+				$data_order = array(
+					'order_code' => $order_code,
+					'ship_id' => $result,
+					'status' => 1
+				);
+				$inser_order = $this->LoginModel->insert_order($data_order);
+				$this->session->set_flashdata('success', 'Cảm ơn quý khách đã đặt hàng! Đơn hàng sẽ được chuyển cho quý khách trong thời gian sớm nhất');
+				redirect(base_url('/checkout'));
+			} else {
+				$this->session->set_flashdata('error', 'Bạn hãy điền đầy đủ thông tin thanh toán');
+				redirect(base_url('/checkout'));
+			}
+		} else {
+			$this->checkout();
+		}
+	}
 	public function dang_xuat()
 	{
 		$this->session->unset_userdata('LoggedInCustomer');

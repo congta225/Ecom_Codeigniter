@@ -34,7 +34,7 @@ class IndexModel extends CI_Model
 			->from('categories')
 			->join('products', 'products.category_id = categories.id')
 			->join('brands', 'brands.id=products.brand_id')
-			->where('products.id', $id)
+			->where('products.brand_id', $id)
 			->get();
 		return $query->result();
 	}

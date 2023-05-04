@@ -78,19 +78,34 @@
 		<section><!--form-->
 			<div class="container">
 				<div class="row">
-
+					<?php
+					if ($this->session->flashdata('success')) {
+					?>
+						<div class="alert alert-success"><?php echo $this->session->flashdata('success') ?></div>
+					<?php
+					} elseif ($this->session->flashdata('error')) {
+					?>
+						<div class="alert alert-danger"><?php echo $this->session->flashdata('error') ?></div>
+					<?php
+					}
+					?>
 					<div class="col-sm-10 col-sm-offset-1">
 						<div class="login-form"><!--login form-->
 							<h2>Thông tin thanh toán</h2>
-							<form onsubmit="return confirm('Xác nhận đặt hàng')" action="" method="POST">
+
+							<form onsubmit="return confirm('Xác nhận đặt hàng')" action="<?php echo base_url('confirm-checkout') ?>" method="POST">
 								<input type="text" name="name" placeholder="Name" />
+								<?php echo form_error('name'); ?>
 								<input type="text" name="address" placeholder="Address" />
+								<?php echo form_error('address'); ?>
 								<input type="text" name="phone" placeholder="Phone" />
+								<?php echo form_error('phone'); ?>
 								<input type="text" name="email" placeholder="Email" />
+								<?php echo form_error('email'); ?>
 								<label for="">Hình thức thanh toán</label>
-								<select name="hinhthucthanhtoan">
-									<option value="">COD</option>
-									<option value="">VNPAY</option>
+								<select name="shiping_method">
+									<option value="cod">COD</option>
+									<option value="vnpay">VNPAY</option>
 								</select>
 								<button type="submit" class="btn btn-primary">Xác nhận thanh toán</button>
 							</form>

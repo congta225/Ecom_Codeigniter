@@ -17,7 +17,9 @@ $route['update-cart-item']['POST'] = 'IndexController/update_cart_item';
 $route['dang-nhap']['GET'] = 'IndexController/login';
 $route['checkout']['GET'] = 'IndexController/checkout';
 $route['login-customer']['POST'] = 'IndexController/login_customer';
+$route['dang-ky']['POST'] = 'IndexController/dang_ky';
 $route['dang-xuat']['GET'] = 'IndexController/dang_xuat';
+$route['confirm-checkout']['POST'] = 'IndexController/confirm_checkout';
 //login
 $route['login']['GET'] = 'LoginController/index';
 $route['login-user']['POST'] = 'LoginController/login';
