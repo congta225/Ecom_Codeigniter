@@ -28,4 +28,9 @@ class LoginModel extends CI_Model
 	{
 		return $this->db->insert('orders', $data_order);
 	}
+
+	public function inser_order_details($data_order_details)
+	{
+		return $this->db->insert('order_details', $data_order_details);
+	}
 }

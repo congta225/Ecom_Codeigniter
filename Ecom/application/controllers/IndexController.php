@@ -53,9 +53,16 @@ class IndexController extends CI_Controller
 		$this->load->view('pages/cart');
 		$this->load->view('pages/template/footer');
 	}
+
+	public function thanks()
+	{
+		$this->load->view('pages/template/header', $this->data);
+		$this->load->view('pages/thanks');
+		$this->load->view('pages/template/footer');
+	}
 	public function checkout()
 	{
-		if ($this->session->userdata('LoggedInCustomer')) {
+		if ($this->session->userdata('LoggedInCustomer') && $this->cart->contents()) {
 			$this->load->view('pages/template/header', $this->data);
 			$this->load->view('pages/checkout');
 			$this->load->view('pages/template/footer');
@@ -216,8 +223,18 @@ class IndexController extends CI_Controller
 					'status' => 1
 				);
 				$inser_order = $this->LoginModel->insert_order($data_order);
+				//order details
+				foreach ($this->cart->contents() as $items) {
+					$data_order_details = array(
+						'order_code' => $order_code,
+						'product_id' => $items['id'],
+						'quantity' => $items['qty']
+					);
+					$inser_order_details = $this->LoginModel->inser_order_details($data_order_details);
+				}
 				$this->session->set_flashdata('success', 'Cảm ơn quý khách đã đặt hàng! Đơn hàng sẽ được chuyển cho quý khách trong thời gian sớm nhất');
-				redirect(base_url('/checkout'));
+				$this->cart->destroy();
+				redirect(base_url('/thanks'));
 			} else {
 				$this->session->set_flashdata('error', 'Bạn hãy điền đầy đủ thông tin thanh toán');
 				redirect(base_url('/checkout'));

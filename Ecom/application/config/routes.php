@@ -20,6 +20,8 @@ $route['login-customer']['POST'] = 'IndexController/login_customer';
 $route['dang-ky']['POST'] = 'IndexController/dang_ky';
 $route['dang-xuat']['GET'] = 'IndexController/dang_xuat';
 $route['confirm-checkout']['POST'] = 'IndexController/confirm_checkout';
+$route['thanks']['GET'] = 'IndexController/thanks';
+
 //login
 $route['login']['GET'] = 'LoginController/index';
 $route['login-user']['POST'] = 'LoginController/login';
