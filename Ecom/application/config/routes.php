@@ -49,3 +49,9 @@ $route['product/delete/(:any)']['GET'] = 'ProductController/delete/$1';
 $route['product/edit/(:any)']['GET'] = 'ProductController/edit/$1';
 $route['product/update/(:any)']['POST'] = 'ProductController/update/$1';
 $route['product/store']['POST'] = 'ProductController/store';
+
+//order
+$route['order/list']['GET'] = 'OrderController/index';
+$route['order/process']['POST'] = 'OrderController/process';
+$route['order/view/(:any)']['GET'] = 'OrderController/view/$1';
+$route['order/delete/(:any)']['GET'] = 'OrderController/delete_order/$1';
