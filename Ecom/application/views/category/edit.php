@@ -22,12 +22,12 @@
 			<form action="<?php echo base_url('category/update/' . $category->id) ?>" method="POST" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="exampleInputEmail1">Title</label>
-					<input type="text" value="<?php echo $category->title ?>" name="title" class="form-control">
+					<input type="text" value="<?php echo $category->title ?>" name="title" class="form-control" id="slug" onkeyup="ChangeToSlug()">
 					<?php echo '<span class="text text-danger">' . form_error('title') . '</span>' ?>
 				</div>
 				<div class="form-group">
 					<label for="exampleInputEmail1">Slug</label>
-					<input type="text" value="<?php echo $category->slug ?>" name="slug" class="form-control">
+					<input type="text" value="<?php echo $category->slug ?>" name="slug" class="form-control" id="convert_slug">
 					<?php echo '<span class="text text-danger">' . form_error('slug') . '</span>' ?>
 				</div>
 				<div class="form-group">

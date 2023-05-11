@@ -10,7 +10,7 @@
 						?>
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<h4 class="panel-title"><a href="<?php echo base_url('danh-muc/' . $cate->id) ?>"><?php echo $cate->title ?></a></h4>
+									<h4 class="panel-title"><a href="<?php echo base_url('danh-muc/' . $cate->id . '/' . $cate->slug) ?>"><?php echo $cate->title ?></a></h4>
 								</div>
 							</div>
 						<?php
@@ -25,7 +25,7 @@
 								<?php
 								foreach ($brand as $key => $bra) {
 								?>
-									<li><a href="<?php echo base_url('thuong-hieu/' . $bra->id) ?>"><?php echo $bra->title ?></a></li>
+									<li><a href="<?php echo base_url('thuong-hieu/' . $bra->id . '/' . $bra->slug) ?>"><?php echo $bra->title ?></a></li>
 								<?php
 								}
 								?>

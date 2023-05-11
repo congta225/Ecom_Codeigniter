@@ -6,9 +6,9 @@ $route['default_controller'] = 'IndexController';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 //trang chủ
-$route['danh-muc/(:any)']['GET'] = 'IndexController/category/$1';
-$route['thuong-hieu/(:any)']['GET'] = 'IndexController/brand/$1';
-$route['san-pham/(:any)']['GET'] = 'IndexController/product/$1';
+$route['danh-muc/(:any)/(:any)']['GET'] = 'IndexController/category/$1/$2';
+$route['thuong-hieu/(:any)/(:any)']['GET'] = 'IndexController/brand/$1/$2';
+$route['san-pham/(:any)/(:any)']['GET'] = 'IndexController/product/$1/$2';
 $route['gio-hang']['GET'] = 'IndexController/cart';
 $route['them-gio-hang']['POST'] = 'IndexController/add_to_cart';
 $route['delete-all-cart']['GET'] = 'IndexController/delete_all_cart';

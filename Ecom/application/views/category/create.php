@@ -20,12 +20,12 @@
 			<form action="<?php echo base_url('category/store') ?>" method="POST" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="exampleInputEmail1">Title</label>
-					<input type="text" name="title" class="form-control">
+					<input type="text" name="title" class="form-control" id="slug" onkeyup="ChangeToSlug()">
 					<?php echo '<span class="text text-danger">' . form_error('title') . '</span>' ?>
 				</div>
 				<div class="form-group">
 					<label for="exampleInputEmail1">Slug</label>
-					<input type="text" name="slug" class="form-control">
+					<input type="text" name="slug" class="form-control" id="convert_slug">
 					<?php echo '<span class="text text-danger">' . form_error('slug') . '</span>' ?>
 				</div>
 				<div class="form-group">
