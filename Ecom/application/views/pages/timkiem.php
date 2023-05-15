@@ -5,9 +5,9 @@
 
 			<div class="col-sm-9 padding-right">
 				<div class="features_items"><!--features_items-->
-					<h2 class="title text-center"><?php echo $title ?></h2>
+					<h2 class="title text-center">Từ khóa: <span style="color: #333;"><?php echo $title ?></span></h2>
 					<?php
-					foreach ($allproductbybrand_pagination as $key => $pro) {
+					foreach ($allproductbykeyword_pagination as $key => $pro) {
 					?>
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
@@ -22,11 +22,9 @@
 										</div>
 										<div class="product-overlay">
 											<div class="overlay-content">
-
 												<h2><?php echo number_format($pro->price, 0, ',', '.') ?>₫</h2>
 												<p><?php echo $pro->title ?></p>
 												<a href="<?php echo base_url('san-pham/' . $pro->id . '/' . $pro->slug) ?>" class="btn btn-default add-to-cart"><i class="fa fa-eye"></i>Details</a>
-
 												<button type="submit" class="btn btn-default add-to-cart">
 													<i class="fa fa-shopping-cart"></i>
 													Thêm vào giỏ hàng
@@ -36,11 +34,11 @@
 									</div>
 								</form>
 								<!-- <div class="choose">
-										<ul class="nav nav-pills nav-justified">
-											<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-											<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-										</ul>
-									</div> -->
+									<ul class="nav nav-pills nav-justified">
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+										<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									</ul>
+								</div> -->
 							</div>
 						</div>
 					<?php

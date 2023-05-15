@@ -21,6 +21,14 @@ $route['dang-ky']['POST'] = 'IndexController/dang_ky';
 $route['dang-xuat']['GET'] = 'IndexController/dang_xuat';
 $route['confirm-checkout']['POST'] = 'IndexController/confirm_checkout';
 $route['thanks']['GET'] = 'IndexController/thanks';
+$route['tim-kiem']['GET'] = 'IndexController/tim_kiem';
+
+//pagination
+$route['product_pagination/(:num)'] = 'IndexController/index/$1';
+$route['product_pagination'] = 'IndexController/index';
+$route['danh-muc/(:any)/(:any)/(:any)']['GET'] = 'IndexController/category/$1/$2';
+$route['thuong-hieu/(:any)/(:any)/(:any)']['GET'] = 'IndexController/brand/$1/$2';
+$route['tim-kiem/(:num)']['GET'] = 'IndexController/tim_kiem/$1';
 
 //login
 $route['login']['GET'] = 'LoginController/index';

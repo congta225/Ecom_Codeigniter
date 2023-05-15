@@ -10,11 +10,42 @@ class IndexController extends CI_Controller
 		$this->load->library('cart');
 		$this->data['category'] = $this->IndexModel->getCategoryHome();
 		$this->data['brand'] = $this->IndexModel->getBrandHome();
+		$this->load->library('pagination');
 	}
 
 	public function index()
 	{
-		$this->data['allproduct'] = $this->IndexModel->getAllProductHome();
+		//custom config link
+		//phân trang
+		$config = array();
+		$config["base_url"] = base_url() . '/product_pagination';
+		$config['total_rows'] = ceil($this->IndexModel->countAllProduct()); //đếm tất cả sản phẩm //8 //hàm ceil làm tròn phân trang 
+		$config["per_page"] = 3; //từng trang 3 sản phẩn
+		$config["uri_segment"] = 2; //lấy số trang hiện tại
+		$config['use_page_numbers'] = TRUE; //trang có số
+		$config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_close'] = '</ul>';
+		$config['first_link'] = 'First';
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		$config['last_link'] = 'Last';
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="active"><a>';
+		$config['cur_tag_close'] = '</a></li>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+		//end custom config link
+		$this->pagination->initialize($config); //tự động tạo trang
+		$this->page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0; //current page active 
+		$this->data["links"] = $this->pagination->create_links(); //tự động tạo links phân trang dựa vào trang hiện tại
+		$this->data['allproduct_pagination'] = $this->IndexModel->getIndexPagination($config["per_page"], $this->page);
+		//pagination
+		// $this->data['allproduct'] = $this->IndexModel->getAllProductHome();
 		$this->load->view('pages/template/header', $this->data);
 		$this->load->view('pages/template/slider');
 		$this->load->view('pages/home', $this->data);
@@ -23,7 +54,39 @@ class IndexController extends CI_Controller
 
 	public function category($id)
 	{
-		$this->data['category_product'] = $this->IndexModel->getCategoryProduct($id);
+		//custom config link
+		//phân trang
+		$this->data['slug'] = $this->IndexModel->getCategorySlug($id);
+		$config = array();
+		$config["base_url"] = base_url() . '/danh-muc' . '/' . $id . '/' . $this->data['slug'];
+		$config['total_rows'] = ceil($this->IndexModel->countAllProductByCate($id)); //đếm tất cả sản phẩm //8 //hàm ceil làm tròn phân trang 
+		$config["per_page"] = 1; //từng trang 3 sản phẩn
+		$config["uri_segment"] = 4; //lấy số trang hiện tại
+		$config['use_page_numbers'] = TRUE; //trang có số
+		$config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_close'] = '</ul>';
+		$config['first_link'] = 'First';
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		$config['last_link'] = 'Last';
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="active"><a>';
+		$config['cur_tag_close'] = '</a></li>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+		//end custom config link
+		$this->pagination->initialize($config); //tự động tạo trang
+		$this->page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0; //current page active 
+		$this->data["links"] = $this->pagination->create_links(); //tự động tạo links phân trang dựa vào trang hiện tại
+		$this->data['allproductbycate_pagination'] = $this->IndexModel->getCatePagination($id, $config["per_page"], $this->page);
+		//pagination
+
+		// $this->data['category_product'] = $this->IndexModel->getCategoryProduct($id);
 		$this->data['title'] = $this->IndexModel->getCategoryTitle($id);
 		$this->config->config["pageTitle"] = $this->data['title'];
 		$this->load->view('pages/template/header', $this->data);
@@ -33,7 +96,39 @@ class IndexController extends CI_Controller
 
 	public function brand($id)
 	{
-		$this->data['brand_product'] = $this->IndexModel->getBrandProduct($id);
+		//custom config link
+		//phân trang
+		$this->data['slug'] = $this->IndexModel->getBrandSlug($id);
+		$config = array();
+		$config["base_url"] = base_url() . '/thuong-hieu' . '/' . $id . '/' . $this->data['slug'];
+		$config['total_rows'] = ceil($this->IndexModel->countAllProductByBrand($id)); //đếm tất cả sản phẩm //8 //hàm ceil làm tròn phân trang 
+		$config["per_page"] = 2; //từng trang 3 sản phẩn
+		$config["uri_segment"] = 4; //lấy số trang hiện tại
+		$config['use_page_numbers'] = TRUE; //trang có số
+		$config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_close'] = '</ul>';
+		$config['first_link'] = 'First';
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		$config['last_link'] = 'Last';
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="active"><a>';
+		$config['cur_tag_close'] = '</a></li>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+		//end custom config link
+		$this->pagination->initialize($config); //tự động tạo trang
+		$this->page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0; //current page active 
+		$this->data["links"] = $this->pagination->create_links(); //tự động tạo links phân trang dựa vào trang hiện tại
+		$this->data['allproductbybrand_pagination'] = $this->IndexModel->getBrandPagination($id, $config["per_page"], $this->page);
+		//pagination
+
+		// $this->data['brand_product'] = $this->IndexModel->getBrandProduct($id);
 		$this->data['title'] = $this->IndexModel->getBrandTitle($id);
 		$this->config->config["pageTitle"] = $this->data['title'];
 		$this->load->view('pages/template/header', $this->data);
@@ -258,5 +353,49 @@ class IndexController extends CI_Controller
 		$this->session->unset_userdata('LoggedInCustomer');
 		$this->session->set_flashdata('success', 'Đăng xuất thành công!!!');
 		redirect(base_url('/dang-nhap'));
+	}
+
+	public function tim_kiem()
+	{
+		if (isset($_GET['keyword']) && $_GET['keyword'] != '') {
+			$keyword = $_GET['keyword'];
+		}
+		//custom config link
+		//phân trang
+		$config = array();
+		$config["base_url"] = base_url() . '/tim-kiem'; //đường dẫn url mặc định
+		$config['reuse_query_string'] = TRUE; //tái sử dụng lại cái url  ?keyword=macbook
+		$config['total_rows'] = ceil($this->IndexModel->countAllProductByKeyword($keyword)); //đếm tất cả sản phẩm //8 //hàm ceil làm tròn phân trang 
+		$config["per_page"] = 3; //từng trang 3 sản phẩn
+		$config["uri_segment"] = 2; //lấy số trang hiện tại
+		$config['use_page_numbers'] = TRUE; //trang có số
+		$config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_close'] = '</ul>';
+		$config['first_link'] = 'First';
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		$config['last_link'] = 'Last';
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		$config['cur_tag_open'] = '<li class="active"><a>';
+		$config['cur_tag_close'] = '</a></li>';
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['next_tag_open'] = '<li>';
+		$config['next_tag_close'] = '</li>';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+		//end custom config link
+		$this->pagination->initialize($config); //tự động tạo trang
+		$this->page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0; //current page active 
+		$this->data["links"] = $this->pagination->create_links(); //tự động tạo links phân trang dựa vào trang hiện tại
+		$this->data['allproductbykeyword_pagination'] = $this->IndexModel->getSearchPagination($keyword, $config["per_page"], $this->page);
+		//pagination
+		$this->data['product'] = $this->IndexModel->getProductByKeyword($keyword);
+		$this->data['title'] = $keyword;
+		$this->config->config["pageTitle"] = 'Tìm kiếm từ khóa:' . $keyword;
+		$this->load->view('pages/template/header', $this->data);
+		$this->load->view('pages/timkiem', $this->data);
+		$this->load->view('pages/template/footer');
 	}
 }

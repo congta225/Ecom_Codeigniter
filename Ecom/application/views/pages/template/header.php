@@ -26,6 +26,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="frontend/images/ico/apple-touch-icon-114-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="frontend/images/ico/apple-touch-icon-72-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+	<style>
+		.search_box .button-search {
+			margin: 0;
+			color: white;
+			font-weight: bold;
+
+		}
+
+		.search_box .button-search:hover {
+			background-color: #333;
+			color: yellow;
+		}
+	</style>
 </head><!--/head-->
 
 <body>
@@ -96,7 +109,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-9">
+					<div class="col-sm-7">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 								<span class="sr-only">Toggle navigation</span>
@@ -130,9 +143,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							</ul>
 						</div>
 					</div>
-					<div class="col-sm-3">
+
+					<div class="col-sm-5">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search" />
+							<form action="<?php echo base_url('tim-kiem') ?>" method="GET">
+								<input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm" />
+								<input type="submit" value="Tìm kiếm" class="btn btn-primary button-search" />
+							</form>
+
 						</div>
 					</div>
 				</div>
