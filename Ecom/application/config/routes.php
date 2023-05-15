@@ -29,6 +29,8 @@ $route['product_pagination'] = 'IndexController/index';
 $route['danh-muc/(:any)/(:any)/(:any)']['GET'] = 'IndexController/category/$1/$2';
 $route['thuong-hieu/(:any)/(:any)/(:any)']['GET'] = 'IndexController/brand/$1/$2';
 $route['tim-kiem/(:num)']['GET'] = 'IndexController/tim_kiem/$1';
+//gửi mail
+$route['test-mail'] = 'IndexController/send_mail';
 
 //login
 $route['login']['GET'] = 'LoginController/index';

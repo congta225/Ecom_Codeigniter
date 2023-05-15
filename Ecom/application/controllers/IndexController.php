@@ -8,6 +8,7 @@ class IndexController extends CI_Controller
 		parent::__construct();
 		$this->load->model('IndexModel');
 		$this->load->library('cart');
+		$this->load->library('email');
 		$this->data['category'] = $this->IndexModel->getCategoryHome();
 		$this->data['brand'] = $this->IndexModel->getBrandHome();
 		$this->load->library('pagination');
@@ -15,6 +16,7 @@ class IndexController extends CI_Controller
 
 	public function index()
 	{
+		echo Carbon\Carbon::now('Asia/Ho_Chi_Minh');
 		//custom config link
 		//phân trang
 		$config = array();
@@ -296,6 +298,31 @@ class IndexController extends CI_Controller
 		}
 	}
 
+	public function send_mail($to_email, $title, $message)
+	{
+		$config = array();
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'ssl://smtp.gmail.com';
+		$config['smtp_user'] = 'congta225@gmail.com';
+		$config['smtp_pass'] = 'ywsicifbofoxyhgy'; //mật khẩu của ứng dụng bên trong gmail
+		$config['smtp_port'] = '465';
+		$config['charset'] = 'utf-8';
+		$this->email->initialize($config);
+		$this->email->set_newline("\r\n");
+
+		//config email
+		$this->email->from('congta225@gmail.com', 'Ecom Codeigniter');
+		$this->email->to($to_email);
+		// $this->email->cc('siddharthaesunuri@gmail.com, siddhu.php@gmail.com'); // gửi 1 bản copy cho một hoặc nhiều người
+		// $this->email->bcc('siddharthaesunuri@gmail.com, siddhu.php@gmail.com'); // gửi 1 bản copy cho một hoặc nhiều người | sẽ ko thấy thông tin người gửi người nhận
+		$this->email->subject($title);
+		$this->email->message($message);
+		$this->email->send();
+		// if (!$this->email->send()) {
+		// 	show_error($this->email->print_debugger());
+		// }
+	}
+
 	public function confirm_checkout()
 	{
 		$this->form_validation->set_rules('email', 'Email', 'trim|required', ['required' => 'Bạn chưa nhập %s.']);
@@ -339,6 +366,13 @@ class IndexController extends CI_Controller
 				}
 				$this->session->set_flashdata('success', 'Cảm ơn quý khách đã đặt hàng! Đơn hàng sẽ được chuyển cho quý khách trong thời gian sớm nhất');
 				$this->cart->destroy();
+
+				//gửi mail đơn hàng đặt thành công
+				$to_email = $email;
+				$title = "Bạn vừa đặt hàng tại website Ecom_codeigniter thành công";
+				$message = "Chúng tôi sẽ liên hệ và giao hàng cho bạn sớm nhất";
+				//send mail
+				$this->send_mail($to_email, $title, $message);
 				redirect(base_url('/thanks'));
 			} else {
 				$this->session->set_flashdata('error', 'Bạn hãy điền đầy đủ thông tin thanh toán');
