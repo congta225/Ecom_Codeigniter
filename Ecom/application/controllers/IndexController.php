@@ -16,7 +16,7 @@ class IndexController extends CI_Controller
 
 	public function index()
 	{
-		echo Carbon\Carbon::now('Asia/Ho_Chi_Minh');
+		// echo Carbon\Carbon::now('Asia/Ho_Chi_Minh');
 		//custom config link
 		//phân trang
 		$config = array();
@@ -249,7 +249,7 @@ class IndexController extends CI_Controller
 				$this->session->set_flashdata('success', 'Đăng nhập thành công!!!');
 				redirect(base_url('/checkout'));
 			} else {
-				$this->session->set_flashdata('error', 'Email hoặc password của bạn chưa đúng');
+				$this->session->set_flashdata('error', 'Email, password chưa đúng hoặc tài khoản của bạn chưa được kích hoạt');
 				redirect(base_url('/dang-nhap'));
 			}
 		} else {
@@ -271,23 +271,33 @@ class IndexController extends CI_Controller
 			$phone = $this->input->post('phone');
 			$address = $this->input->post('address');
 			$name = $this->input->post('name');
+			$token = rand(0000, 9999);
+			$date_created = Carbon\Carbon::now('Asia/Ho_Chi_Minh');
 			$data = array(
 				'name' => $name,
 				'email' => $email,
 				'phone' => $phone,
 				'address' => $address,
-				'password' => $password
+				'password' => $password,
+				'token' => $token,
+				'date_created' => $date_created,
 			);
 			$this->load->model('LoginModel');
 			$result = $this->LoginModel->NewCustomer($data);
 
 			if ($result) {
-				$session_array = [
-					'user_name' => $name,
-					'email' => $email
-				];
-				$this->session->set_userdata('LoggedInCustomer', $session_array);
-				$this->session->set_flashdata('success', 'Đăng ký thành công!!!');
+				// $session_array = [
+				// 	'user_name' => $name,
+				// 	'email' => $email
+				// ];
+				// $this->session->set_userdata('LoggedInCustomer', $session_array);
+				// $this->session->set_flashdata('success', 'Đăng ký thành công!!!');
+				//send mail
+				$fullurl = base_url() . 'xac-thuc-dang-ky/?token=' . $token . '&email=' . $email;
+				$title = "Đăng ký tài khoản thành công";
+				$message = "Kích hoạt tài khoản: " . $fullurl;
+				$to_email = $email;
+				$this->send_mail($to_email, $title, $message);
 				redirect(base_url('/checkout'));
 			} else {
 				$this->session->set_flashdata('error', 'Email hoặc password của bạn chưa đúng');
@@ -295,6 +305,37 @@ class IndexController extends CI_Controller
 			}
 		} else {
 			$this->login();
+		}
+	}
+
+	public function xac_thuc_dang_ky()
+	{
+		if (isset($_GET['email']) && $_GET['token']) {
+			$token = $_GET['token'];
+			$email  = $_GET['email'];
+		}
+		$data['get_customer'] = $this->IndexModel->getCustomersToken($email);
+		// print_r($data);
+		//update customer
+		$now = Carbon\Carbon::now('Asia/Ho_Chi_Minh')->addMinutes(5); //lấy time hiện tại + với 5 phút
+		$token_rand = rand(0000, 9999);
+		foreach ($data['get_customer'] as $key => $val) {
+			if ($token != $val->token) {
+				$this->session->set_flashdata('error', 'Đường link kích hoạt không đúng');
+				redirect(base_url('/dang-nhap'));
+			}
+			$data_customer = [
+				'status' => 1,
+				'token' => $token
+			];
+			if ($val->date_created < $now) {
+				$active_customer = $this->IndexModel->activeCustomersToken($email, $data_customer);
+				$this->session->set_flashdata('success', 'Kích hoạt user thành công!!');
+				redirect(base_url('/dang-nhap'));
+			} else {
+				$this->session->set_flashdata('error', 'Đã quá thời gian kích hoạt tài khoản, bạn vui lòng đăng ký lại');
+				redirect(base_url('/dang-nhap'));
+			}
 		}
 	}
 

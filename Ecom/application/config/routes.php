@@ -18,6 +18,7 @@ $route['dang-nhap']['GET'] = 'IndexController/login';
 $route['checkout']['GET'] = 'IndexController/checkout';
 $route['login-customer']['POST'] = 'IndexController/login_customer';
 $route['dang-ky']['POST'] = 'IndexController/dang_ky';
+$route['xac-thuc-dang-ky']['GET'] = 'IndexController/xac_thuc_dang_ky';
 $route['dang-xuat']['GET'] = 'IndexController/dang_xuat';
 $route['confirm-checkout']['POST'] = 'IndexController/confirm_checkout';
 $route['thanks']['GET'] = 'IndexController/thanks';
