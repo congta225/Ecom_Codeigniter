@@ -39,6 +39,10 @@ $route['login-user']['POST'] = 'LoginController/login';
 //dashboard
 $route['dashboard']['GET'] = 'DashboardController/index';
 $route['logout']['GET'] = 'DashboardController/logout';
+//Register Admin
+$route['register-admin']['GET'] = 'LoginController/register_admin';
+$route['register-insert']['POST'] = 'LoginController/register_insert';
+
 //brand
 $route['brand/create']['GET'] = 'BrandController/create';
 $route['brand/list']['GET'] = 'BrandController/index';

@@ -17,6 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<link href="<?php echo base_url('frontend/css/animate.css') ?>" rel="stylesheet">
 	<link href="<?php echo base_url('frontend/css/main.css') ?>" rel="stylesheet">
 	<link href="<?php echo base_url('frontend/css/responsive.css') ?>" rel="stylesheet">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 	<!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>

@@ -1,5 +1,5 @@
 <div class="container">
-	<h1>Đăng nhập ADMIN</h1>
+	<h1>Đăng ký ADMIN</h1>
 	<?php
 	if ($this->session->flashdata('success')) {
 	?>
@@ -11,7 +11,12 @@
 	<?php
 	}
 	?>
-	<form action="<?php echo base_url('login-user') ?>" method="POST">
+	<form action="<?php echo base_url('register-insert') ?>" method="POST">
+		<div class="form-group">
+			<label for="exampleInputEmail1">UserName</label>
+			<input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Username">
+			<?php echo form_error('username'); ?>
+		</div>
 		<div class="form-group">
 			<label for="exampleInputEmail1">Email address</label>
 			<input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -22,7 +27,7 @@
 			<input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
 			<?php echo form_error('password'); ?>
 		</div>
-		<button type="submit" class="btn btn-primary">Đăng nhập</button>
-		<a href="<?php echo base_url('register-admin') ?>" class="btn btn-success">Đăng ký</a>
+		<a href="<?php echo base_url('login') ?>" class="btn btn-default">Quay về đăng nhập</a>
+		<button type="submit" class="btn btn-primary">Đăng ký Admin</button>
 	</form>
 </div>
