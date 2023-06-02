@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 $route['default_controller'] = 'IndexController';
-$route['404_override'] = '';
+$route['404_override'] = 'IndexController/notFound';
 $route['translate_uri_dashes'] = FALSE;
 //trang chủ
 $route['danh-muc/(:any)/(:any)']['GET'] = 'IndexController/category/$1/$2';

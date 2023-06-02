@@ -358,6 +358,15 @@ class IndexController extends CI_Controller
 		}
 	}
 
+	public function notFound()
+	{
+		// echo '404';
+		$this->load->view('pages/template/header', $this->data);
+		// $this->load->view('pages/template/slider');
+		$this->load->view('pages/404');
+		$this->load->view('pages/template/footer');
+	}
+
 	public function send_mail($to_email, $title, $message)
 	{
 		$config = array();
