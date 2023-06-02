@@ -11,6 +11,11 @@ class IndexModel extends CI_Model
 		$query = $this->db->get_where('brands', ['status' => 1]);
 		return $query->result();
 	}
+	public function getSliderHome()
+	{
+		$query = $this->db->get_where('sliders', ['status' => 1]);
+		return $query->result();
+	}
 	public function getAllProductHome()
 	{
 		$query = $this->db->get_where('products', ['status' => 1]);

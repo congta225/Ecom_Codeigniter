@@ -7,9 +7,11 @@ class IndexController extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('IndexModel');
+		$this->load->model('SliderModel');
 		$this->load->library('cart');
 		$this->load->library('email');
 		$this->data['category'] = $this->IndexModel->getCategoryHome();
+		$this->data['slider'] = $this->IndexModel->getSliderHome();
 		$this->data['brand'] = $this->IndexModel->getBrandHome();
 		$this->load->library('pagination');
 	}

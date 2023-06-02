@@ -50,6 +50,14 @@ $route['brand/delete/(:any)']['GET'] = 'BrandController/delete/$1';
 $route['brand/edit/(:any)']['GET'] = 'BrandController/edit/$1';
 $route['brand/update/(:any)']['POST'] = 'BrandController/update/$1';
 $route['brand/store']['POST'] = 'BrandController/store';
+
+//slider
+$route['slider/create']['GET'] = 'SliderController/create';
+$route['slider/list']['GET'] = 'SliderController/index';
+$route['slider/delete/(:any)']['GET'] = 'SliderController/delete/$1';
+$route['slider/edit/(:any)']['GET'] = 'SliderController/edit/$1';
+$route['slider/update/(:any)']['POST'] = 'SliderController/update/$1';
+$route['slider/store']['POST'] = 'SliderController/store';
 //category
 $route['category/create']['GET'] = 'CategoryController/create';
 $route['category/list']['GET'] = 'CategoryController/index';
