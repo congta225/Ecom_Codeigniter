@@ -24,17 +24,25 @@
 									<img src="images/product-details/rating.png" alt="" />
 									<span>
 										<span><?php echo number_format($pro->price, 0, ',', '.') ?>₫</span>
-										<br />
-										<label>Số lượng: <?php echo $pro->quantity ?></label>
-										<input type="number" min="1" value="1" name="quantity" />
-										<button type="submit" class="btn btn-fefault cart">
-											<i class="fa fa-shopping-cart"></i>
-											Thêm vào giỏ hàng
-										</button>
+										<div>Số lượng: <input type="number" min="1" value="1" name="quantity" /></div>
+										<div style="margin: 15px 0;">
+											<button type="submit" class="btn btn-fefault cart">
+												<i class="fa fa-shopping-cart"></i>
+												Thêm vào giỏ hàng
+											</button>
+										</div>
+
 									</span>
-									<p><b>Tình trạng:</b> New</p>
-									<p><b>Thương hiệu:</b> <?php echo $pro->tenthuonghieu ?></p>
-									<p><b>Danh mục:</b><?php echo $pro->tendanhmuc ?></p>
+									<div>Tình trạng: <p class="btn btn-warning" style="color: #fff; margin-left: 10px;">New</p>
+									</div>
+
+									<div>Thương hiệu:<p class="btn btn-info" style="color: #fff;margin-left: 10px;"> <?php echo $pro->tenthuonghieu ?></p>
+									</div>
+
+									<div>Danh mục: <p class="btn btn-danger" style="color: #fff;margin-left: 10px;"> <?php echo $pro->tendanhmuc ?></p>
+									</div>
+									<p><b></b> </p>
+									<p><b></b> </p>
 									<a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
 								</div><!--/product-information-->
 							</div>
