@@ -16,6 +16,15 @@ class IndexController extends CI_Controller
 		$this->load->library('pagination');
 	}
 
+	public function contact()
+	{
+		$this->load->view('pages/template/header', $this->data);
+		// $this->load->view('pages/template/slider', $this->data);
+		$this->load->view('pages/contact');
+		$this->load->view('pages/template/footer');
+	}
+
+
 	public function index()
 	{
 		// echo Carbon\Carbon::now('Asia/Ho_Chi_Minh');
@@ -390,6 +399,27 @@ class IndexController extends CI_Controller
 		// if (!$this->email->send()) {
 		// 	show_error($this->email->print_debugger());
 		// }
+	}
+
+	public function send_contact()
+	{
+		$data = [
+			'name' => $this->input->post('name'),
+			'email' => $this->input->post('email'),
+			'phone' => $this->input->post('phone'),
+			'address' => $this->input->post('address'),
+			'note' => $this->input->post('note')
+		];
+		$result = $this->IndexModel->insertContact($data);
+		if ($result) {
+			$to_email = $this->input->post('email');
+			$title = "Thông tin liên hệ của quý khách: " . $this->input->post('name');
+			$message = "Thông tin liên hệ tại đây. Ghi chú: " . $this->input->post('note');
+		}
+		$this->send_mail($to_email, $title, $message);
+
+		$this->session->set_flashdata('success', 'Gửi thông tin liên hệ thành công!!');
+		redirect(base_url('contact'));
 	}
 
 	public function confirm_checkout()

@@ -140,7 +140,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 									</ul>
 								</li>
 
-								<li><a href="contact-us.html">Contact</a></li>
+								<li><a href="<?php echo base_url('contact') ?>">Contact</a></li>
 							</ul>
 						</div>
 					</div>
