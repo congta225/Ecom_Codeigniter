@@ -1,6 +1,6 @@
 <div class="col-sm-3">
 	<div class="left-sidebar">
-		<h2>Category</h2>
+		<h2>DANH MỤC SẢN PHẨM</h2>
 		<div class="panel-group category-products" id="accordian"><!--category-productsr-->
 			<?php
 			foreach ($category as $key => $cate) {
@@ -16,7 +16,7 @@
 		</div><!--/category-products-->
 
 		<div class="brands_products"><!--brands_products-->
-			<h2>Brands</h2>
+			<h2>THƯƠNG HIỆU </h2>
 			<div class="brands-name">
 				<ul class="nav nav-pills nav-stacked">
 					<?php

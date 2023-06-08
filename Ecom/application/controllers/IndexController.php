@@ -33,7 +33,7 @@ class IndexController extends CI_Controller
 		$config = array();
 		$config["base_url"] = base_url() . '/product_pagination';
 		$config['total_rows'] = ceil($this->IndexModel->countAllProduct()); //đếm tất cả sản phẩm //8 //hàm ceil làm tròn phân trang 
-		$config["per_page"] = 3; //từng trang 3 sản phẩn
+		$config["per_page"] = 9; //từng trang 3 sản phẩn
 		$config["uri_segment"] = 2; //lấy số trang hiện tại
 		$config['use_page_numbers'] = TRUE; //trang có số
 		$config['full_tag_open'] = '<ul class="pagination">';
@@ -58,6 +58,10 @@ class IndexController extends CI_Controller
 		$this->data["links"] = $this->pagination->create_links(); //tự động tạo links phân trang dựa vào trang hiện tại
 		$this->data['allproduct_pagination'] = $this->IndexModel->getIndexPagination($config["per_page"], $this->page);
 		//pagination
+
+		//sidebar
+		$this->data['items_categories'] = $this->IndexModel->ItemCategories();
+
 		// $this->data['allproduct'] = $this->IndexModel->getAllProductHome();
 		$this->load->view('pages/template/header', $this->data);
 		$this->load->view('pages/template/slider');
@@ -73,7 +77,7 @@ class IndexController extends CI_Controller
 		$config = array();
 		$config["base_url"] = base_url() . '/danh-muc' . '/' . $id . '/' . $this->data['slug'];
 		$config['total_rows'] = ceil($this->IndexModel->countAllProductByCate($id)); //đếm tất cả sản phẩm //8 //hàm ceil làm tròn phân trang 
-		$config["per_page"] = 5; //từng trang 3 sản phẩn
+		$config["per_page"] = 6; //từng trang 3 sản phẩn
 		$config["uri_segment"] = 4; //lấy số trang hiện tại
 		$config['use_page_numbers'] = TRUE; //trang có số
 		$config['full_tag_open'] = '<ul class="pagination">';
@@ -132,7 +136,7 @@ class IndexController extends CI_Controller
 		$config = array();
 		$config["base_url"] = base_url() . '/thuong-hieu' . '/' . $id . '/' . $this->data['slug'];
 		$config['total_rows'] = ceil($this->IndexModel->countAllProductByBrand($id)); //đếm tất cả sản phẩm //8 //hàm ceil làm tròn phân trang 
-		$config["per_page"] = 2; //từng trang 3 sản phẩn
+		$config["per_page"] = 6; //từng trang 3 sản phẩn
 		$config["uri_segment"] = 4; //lấy số trang hiện tại
 		$config['use_page_numbers'] = TRUE; //trang có số
 		$config['full_tag_open'] = '<ul class="pagination">';
