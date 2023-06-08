@@ -51,6 +51,7 @@
 							<td>
 								<a onclick="return confirm('Xóa danh mục này?')" href="<?php echo base_url('order/delete/' . $ord->order_code) ?>" class="btn btn-danger">Delete</a>
 								<a href="<?php echo base_url('order/view/' . $ord->order_code) ?>" class="btn btn-primary">View</a>
+								<a href="<?php echo base_url('order/print_order/' . $ord->order_code) ?>" class="btn btn-warning">In đơn hàng</a>
 							</td>
 						</tr>
 					<?php

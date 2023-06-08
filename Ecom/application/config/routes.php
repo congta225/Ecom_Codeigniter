@@ -83,3 +83,4 @@ $route['order/list']['GET'] = 'OrderController/index';
 $route['order/process']['POST'] = 'OrderController/process';
 $route['order/view/(:any)']['GET'] = 'OrderController/view/$1';
 $route['order/delete/(:any)']['GET'] = 'OrderController/delete_order/$1';
+$route['order/print_order/(:any)']['GET'] = 'OrderController/print_order/$1';
