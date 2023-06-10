@@ -14,7 +14,7 @@ class IndexModel extends CI_Model
 
 	public function ItemCategories()
 	{
-		$this->db->select('products.*, categories.title as titlecate, categories.id');
+		$this->db->select('products.*, categories.title as titlecate, categories.id as cateid');
 		$this->db->from('categories');
 		$this->db->join('products', 'products.category_id = categories.id');
 		$query =  $this->db->get();
@@ -149,6 +149,19 @@ class IndexModel extends CI_Model
 			->join('products', 'products.category_id = categories.id')
 			->join('brands', 'brands.id=products.brand_id')
 			->where('products.id', $id)
+			->get();
+		return $query->result();
+	}
+
+	public function getProductRelated($id, $category_id)
+	{
+
+		$query = $this->db->select('categories.title as tendanhmuc, products.*, brands.title as tenthuonghieu')
+			->from('categories')
+			->join('products', 'products.category_id = categories.id')
+			->join('brands', 'brands.id=products.brand_id')
+			->where('products.category_id', $category_id)
+			->where_not_in('products.id', $id)
 			->get();
 		return $query->result();
 	}
