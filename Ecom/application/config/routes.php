@@ -27,6 +27,8 @@ $route['tim-kiem']['GET'] = 'IndexController/tim_kiem';
 //contact
 $route['contact']['GET'] = 'IndexController/contact';
 $route['send-contact']['POST'] = 'IndexController/send_contact';
+//Comment
+$route['comment/send']['POST'] = 'IndexController/comment_send';
 
 
 //pagination

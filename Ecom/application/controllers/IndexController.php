@@ -541,4 +541,16 @@ class IndexController extends CI_Controller
 		$this->load->view('pages/timkiem', $this->data);
 		$this->load->view('pages/template/footer');
 	}
+
+	public function comment_send()
+	{
+		$data = [
+			'name' => $this->input->post('name_comment'),
+			'email' => $this->input->post('email_comment'),
+			'comment' => $this->input->post('comment'),
+			'status' => 0,
+
+		];
+		$result = $this->IndexModel->insertComment($data);
+	}
 }

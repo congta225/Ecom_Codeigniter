@@ -6,6 +6,11 @@ class IndexModel extends CI_Model
 		return $this->db->insert('contacts', $data);
 	}
 
+	public function insertComment($data)
+	{
+		return $this->db->insert('comments', $data);
+	}
+
 	public function getCategoryHome()
 	{
 		$query = $this->db->get_where('categories', ['status' => 1]);

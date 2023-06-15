@@ -220,6 +220,38 @@
 		return x1 + x2;
 	}
 </script>
+
+<script>
+	$('.write-comment').click(function() {
+		// alert('gửi');
+		var name_comment = $('.name_comment').val();
+		var email_comment = $('.email_comment').val();
+		var comment = $('.comment').val();
+		// alert(name_comment);
+		// alert(email_comment);
+		// alert(comment);
+
+		if (name_comment == '' || email_comment == '' || comment == '') {
+			alert('Bạn hãy điền đầy đủ thông tin đánh giá!!')
+		} else {
+			$.ajax({
+				method: 'POST',
+				url: '/comment/send',
+				data: {
+					name_comment: name_comment,
+					email_comment: email_comment,
+					comment: comment
+				},
+				success: function() {
+					// alert('thêm đánh giá thành công, vui lòng chờ duyệt');
+					$('#comment_alert').html('<span class="text text-success">Đánh giá đã được gửi, vui lòng chờ duyệt.</span>')
+				}
+
+			})
+		}
+
+	})
+</script>
 </body>
 
 </html>
